@@ -1,7 +1,7 @@
-# From alpine:latest image
-FROM alpine:latest
+FROM alpine:3.6
 
-MAINTAINER Yifeng,http://www.cnblogs.com/hanyifeng
+LABEL maintainer="Yifeng<http://www.cnblogs.com/hanyifeng>"
+LABEL authors="Yifeng<http://www.cnblogs.com/hanyifeng>,matsub<matsub.rk@gmail.com>"
 
 # Define a dynamic variable for Certificate CN
 ENV HOSTIP ''

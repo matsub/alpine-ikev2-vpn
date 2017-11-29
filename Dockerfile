@@ -33,7 +33,7 @@ COPY ./conf/iptables /etc/sysconfig/iptables
 COPY ./conf/supervisord.conf /etc/supervisord.conf
 
 # Make cert script and copy cert to ipsec dir
-COPY ./scripts/vpn /usr/bin/vpn
+COPY ./scripts/generate-key /usr/bin/generate-key
 
 # Open udp 500\4500 port
 EXPOSE 500:500/udp

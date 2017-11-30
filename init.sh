@@ -3,7 +3,9 @@
 set -e
 
 # Custom connection VPN username password
-sed -i "$ a $VPNUSER %any : EAP '$VPNPASS'"  /usr/local/etc/ipsec.secrets
+if [ -n "$VPNUSER" ] &&  [ -n "$VPNPASS" ];then
+    add-user "$VPNUSER:$VPNPASS"
+fi
 
 # Dynamic modification of IPSec.conf
 sed -i "s/\$LEFTID/$HOSTIP/g" /usr/local/etc/ipsec.conf

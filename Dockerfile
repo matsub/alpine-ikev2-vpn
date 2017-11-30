@@ -1,7 +1,7 @@
 FROM alpine:3.6
 
-LABEL maintainer="Yifeng<http://www.cnblogs.com/hanyifeng>"
-LABEL authors="Yifeng<http://www.cnblogs.com/hanyifeng>,matsub<matsub.rk@gmail.com>"
+LABEL maintainer="matsub<matsub.rk@gmail.com>"
+LABEL authors="https://github.com/matsub/alpine-ikev2-vpn/graphs/contributors"
 
 # Define a dynamic variable for Certificate CN
 ENV HOSTIP ''
@@ -32,8 +32,11 @@ COPY ./conf/ipsec.secrets /usr/local/etc/ipsec.secrets
 COPY ./conf/iptables /etc/sysconfig/iptables
 COPY ./conf/supervisord.conf /etc/supervisord.conf
 
-# Make cert script and copy cert to ipsec dir
+# Copy scripts
 COPY ./scripts/generate-key /usr/bin/generate-key
+COPY ./scripts/add-user /usr/bin/add-user
+RUN chmod +x /usr/bin/generate-key
+RUN chmod +x /usr/bin/add-user
 
 # Open udp 500\4500 port
 EXPOSE 500:500/udp

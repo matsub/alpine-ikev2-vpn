@@ -1,0 +1,7 @@
+#!/bin/bash
+CREDENTIAL=(${1//:/ })
+USER="$(nospaces "${CREDENTIAL[0]}")"
+USER="$(noquotes "$USER")"
+PASS="$(nospaces "${CREDENTIAL[1]}")"
+PASS="$(noquotes "$PASS")"
+sed -i "$ a $USER %any : EAP '$PASS'" /usr/local/etc/ipsec.secrets

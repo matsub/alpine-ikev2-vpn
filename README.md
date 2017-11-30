@@ -39,7 +39,7 @@ Then run `docker run` command.
 
 3. Use the following command to generate the certificate and view the certificate contents
 ```Bash
-# docker exec -it ikev2-vpn sh /usr/bin/vpn
+# docker exec -it ikev2-vpn sh /usr/bin/generate-key
 net.ipv4.ip_forward = 1
 ipsec: stopped
 ipsec: started

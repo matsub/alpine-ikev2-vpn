@@ -9,6 +9,11 @@ ENV VPNUSER ''
 ENV VPNPASS ''
 ENV TZ=Asia/Shanghai
 
+# Define a dynamic variable for DN
+ENV CERT_C 'cn'
+ENV CERT_O 'ilove'
+ENV CERT_CN 'Free vpn'
+
 # strongSwan Version
 ARG SS_VERSION="https://download.strongswan.org/strongswan-5.5.3.tar.gz"
 

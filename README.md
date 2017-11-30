@@ -43,9 +43,16 @@ Then run `docker run` command.
 $ docker run -itd --privileged -v /lib/modules:/lib/modules:ro -e HOSTIP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn <image_name>
 ```
 
-    **HOSTIP :Public network must be your host IP**
-    **[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.**
-    **Defalut vpnuser is testUserOne,passwd is testOnePass**
+**Note: environment variables**
+
+| variable                | value                                | requirement                                      |
+|-------------------------|--------------------------------------|--------------------------------------------------|
+| `$HOSTIP`               | Public network must be your host IP  | *require*                                        |
+| `$VPNUSER` & `$VPNPASS` | are for custom user & password       | optional (default `testUserOne` & `testOnePass`) |
+| `$TZ`                   | A time zone used to set zoneinfo     | optional (default `Asia/Shanghai`)               |
+| `$CERT_C`               | Your country used in subject DN      | optional (default `cn`)                          |
+| `$CERT_O`               | Your organization used in subject DN | optional (default `ilove`)                       |
+| `$CERT_CN`              | The name of cert used in subject DN  | optional (default `Free vpn`)                    |
 
 
 3. Use the following command to generate the certificate and view the certificate contents

@@ -1,7 +1,7 @@
 FROM alpine:3.6
 
-LABEL maintainer="Yifeng<http://www.cnblogs.com/hanyifeng>"
-LABEL authors="Yifeng<http://www.cnblogs.com/hanyifeng>,matsub<matsub.rk@gmail.com>"
+LABEL maintainer="matsub<matsub.rk@gmail.com>"
+LABEL authors="https://github.com/matsub/alpine-ikev2-vpn/graphs/contributors"
 
 # Define a dynamic variable for Certificate CN
 ENV HOSTIP ''

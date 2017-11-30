@@ -1,45 +1,57 @@
 # A runing IKEv2 VPN's container on alpine linux system
+
 ## Overview ##
-Let the IKEv2 vpn service run in the Docker container, do not need too much configuration, you just take the mirror on the Docker server, then run a container, the container generated certificate copy installed on your client, you can connect vpn The server. Welcome everyone's discussion！:blush:
+Let the IKEv2 vpn service run in the Docker container, do not need too much
+configuration, you just take the mirror on the Docker server, then run a
+container, the container generated certificate copy installed on your client,
+you can connect vpn The server. Welcome everyone's discussion！:blush:
+
 
 ## Features
+
 * based on alpine image and Using supervisor to protect the IPSec process
 * StrongSwan provides ikev2 VPN service
 * In addition to Android and Linux, but other devices(Winodws 7+,Mac,iOS) by default comes with IKEv2 dial clients
 * When the container is run, the certificate file is dynamically generated based on the environment variable (last version)
 * Combined with Freeradius achieve Authentication, authorization, and accounting (AAA) (last version)
 
+
 ## Prerequisites
+
 * The host can use physical machines, virtual machines, and VPS.
 * The host machines and containers must be opened within ip_forward （net.ipv4.ip_forward）
 * The host machines Install Docker engine.
 
 ## Usage examples
-1. Clone git
+
+1. Get image
+
 ```Bash
-# git clone https://github.com/aliasmee/alpine-ikev2-vpn.git
+$ # pull the image from Docker Hub
+$ docker pull matsub/alpine-ikev2-vpn
+$ # or build an image from source
+$ git clone https://github.com/matsub/alpine-ikev2-vpn.git
+$ docker build ./alpine-ikev2-vpn
 ```
-Or use `docker pull` to download images to the local
-```Bash
-# docker pull hanyifeng/alpine-ikev2-vpn
-```
+
 Then run `docker run` command.
 
 
 2. Using docker build can create an automated build image,Then use the following command to run
+
 ```Bash
-# cd alpine-ikev2-vpn/
-# docker build -t ikev2 .
-# docker run -itd --privileged -v /lib/modules:/lib/modules -e HOSTIP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ikev2
+$ docker run -itd --privileged -v /lib/modules:/lib/modules:ro -e HOSTIP='Your's Public network IP' -e VPNUSER=jack -e VPNPASS="jack&opsAdmin" -p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn <image_name>
 ```
+
     **HOSTIP :Public network must be your host IP**
     **[$VPNUSER] & [$VPNPASS] env Optional,The function is to customize the user name and password to connect to the VPN service.**
     **Defalut vpnuser is testUserOne,passwd is testOnePass**
 
 
 3. Use the following command to generate the certificate and view the certificate contents
+
 ```Bash
-# docker exec -it ikev2-vpn sh /usr/bin/generate-key
+$ docker exec -it ikev2-vpn generate-key
 net.ipv4.ip_forward = 1
 ipsec: stopped
 ipsec: started
@@ -66,39 +78,61 @@ VDqjxrbBG+NdgjQm71vCNayb0gwv0qPkU5YLnY8pqloltN6l4fBqkUEqKvqSwA==
 -----END CERTIFICATE-----
 ```
 
-4. Copy this certificate to the remote client and name it xxx.cert or xxx.cert（Note：Windows need to modify the suffix pem for cer can be installed）
-example:<br>
-![](https://github.com/aliasmee/alpine-ikev2-vpn/blob/master/IKEv2_enable_example.png?raw=true)
+4. Copy this certificate to the remote client and name it xxx.cert or xxx.pem (Windows need to use `pem` suffix)
+
+example:
+
+![](./IKEv2_enable_example.png)
 
 5. Connect vpn it！
-Open the network settings, create a new IKEv2 protocol VPN, enter the default VPN account and password, or use the custom user that starts the container to connect to VPN.
-Create new VPN method is not described here ^_^.
+
+Open the network settings, create a new IKEv2 protocol VPN, enter the default
+VPN account and password, or use the custom user that starts the container to
+connect to VPN.  Create new VPN method is not described here ^_^.
+
 
 ## Other Tips
-1. If you want to add VPN users, you can run the following command to enter the container and edit the ipsec.secrets file.
+1. If you want to add VPN users, you can run the following command to add an user.
+
 ```bash
-# docker exec -it ikev2-vpn bash
-bash-4.3# vi /usr/local/etc/ipsec.secrets
+$ docker exec -t ikev2-vpn add-user "<USER>:<PASS>"
 ```
-    **Pattern: testUserOne %any : EAP "testOnePass" **
+
+e.g. if you want to add user named "joe" with password "cool", then
+
+```bash
+$ docker exec -t ikev2-vpn add-user "joe:cool"
+```
+
+
 ## Plan list
+
 * Dynamically generated based on the environment variable （Completed）
 
+
 ## Currently supported client device 
+
 Only test for the following client device system，You can test on the other system versions and feedback ！<br>
-`Mac`:	10.11.4<br>
-`iOS`:	10.2<br>
-`Windows`:	10<br>
-`Centos`:	6.8<br>
-`Android`：(Download strongSwan APK)
+
+| system    | version                   |
+|-----------|---------------------------|
+| `Mac`     | 10.11.4                   |
+| `iOS`     | 10.2                      |
+| `Windows` | 10                        |
+| `Centos`  | 6.8                       |
+| `Android` | (Download strongSwan APK) |
+
 
 ## Authors
-Name:	Yifeng Han<br>
-e-mail:	 xhanyifeng@gmail.com
+
+see https://github.com/matsub/alpine-ikev2-vpn/graphs/contributors
+
 
 ## Licensing
-This project is licensed under the GNU General Public License - see the [LICENSE.md](https://github.com/aliasmee/IKEv2-radius-vpn/blob/master/LICENSE) file for details
+This project is licensed under the GNU General Public License - see the
+[LICENSE.md](https://github.com/aliasmee/IKEv2-radius-vpn/blob/master/LICENSE)
+file for details
+
 
 ## Acknowledgments
 https://www.strongswan.org/
-

@@ -32,8 +32,11 @@ COPY ./conf/ipsec.secrets /usr/local/etc/ipsec.secrets
 COPY ./conf/iptables /etc/sysconfig/iptables
 COPY ./conf/supervisord.conf /etc/supervisord.conf
 
-# Make cert script and copy cert to ipsec dir
+# Copy scripts
 COPY ./scripts/generate-key /usr/bin/generate-key
+COPY ./scripts/add-user /usr/bin/add-user
+RUN chmod +x /usr/bin/generate-key
+RUN chmod +x /usr/bin/add-user
 
 # Open udp 500\4500 port
 EXPOSE 500:500/udp

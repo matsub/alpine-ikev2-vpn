@@ -5,8 +5,8 @@ LABEL authors="https://github.com/matsub/alpine-ikev2-vpn/graphs/contributors"
 
 # Define a dynamic variable for Certificate CN
 ENV HOSTIP ''
-ENV VPNUSER ''
-ENV VPNPASS ''
+ENV VPNUSER 'testUserOne'
+ENV VPNPASS 'testOnePass'
 ENV TZ=Asia/Shanghai
 
 # Define a dynamic variable for DN

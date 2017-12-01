@@ -17,4 +17,12 @@ iptables-restore < /etc/sysconfig/iptables
 sysctl -w net.ipv4.ip_forward=1
 sysctl -w net.ipv4.ip_no_pmtu_disc=1
 
+# Create certificate if not exist
+if [ ! -e /data/key_files/ca.cert.pem ];then
+    /usr/bin/generate-key
+fi
+
+# Apply the certificate
+/usr/bin/apply-key
+
 exec "$@"

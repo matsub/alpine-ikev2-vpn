@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cd /data/key_files
+# Copy certificate to ipsec dir
+\cp ca.cert.pem /usr/local/etc/ipsec.d/cacerts/
+\cp server.cert.pem /usr/local/etc/ipsec.d/certs/
+\cp server.pem /usr/local/etc/ipsec.d/private/
+\cp client.cert.pem /usr/local/etc/ipsec.d/certs/
+\cp client.pem  /usr/local/etc/ipsec.d/private/
+
+# Reboot ipsec vpn
+if [ -n "$(ps -a | grep supervisord | grep -v grep)" ];then
+    supervisorctl restart ipsec
+fi
+
+# View the certificate contents and save file
+echo "Below the horizontal line is the content of the certificate. Copy the content to a file in the .cert suffix format. Such as: vpn.cert"
+echo "______________________________________________________________"
+cat /data/key_files/ca.cert.pem

@@ -19,10 +19,10 @@ sysctl -w net.ipv4.ip_no_pmtu_disc=1
 
 # Create certificate if not exist
 if [ ! -e /data/key_files/ca.cert.pem ];then
-    /usr/bin/generate-key
+    generate-key
 fi
 
 # Apply the certificate
-/usr/bin/apply-key
+apply-key
 
 exec "$@"

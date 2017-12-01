@@ -55,7 +55,6 @@ $ docker run -itd --privileged \
 |------------------------------------|-------------------------------------|--------------------------------------------------|
 | `$HOSTIP`                          | Public network must be your host IP | *require*                                        |
 | `$VPNUSER` & `$VPNPASS`            | are for custom user & password      | optional (default `testUserOne` & `testOnePass`) |
-| `$TZ`                              | A time zone used to set zoneinfo    | optional (default `Asia/Shanghai`)               |
 | `$CERT_C` & `$CERT_O` & `$CERT_CN` | Certificate Attributes used in a DN | optional (default `cn` & `ilove` & `Free vpn`)   |
 
 
